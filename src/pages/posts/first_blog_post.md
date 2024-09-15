@@ -1,163 +1,97 @@
 ---
 layout: ../../layouts/post.astro
-title: "This is the first post of my new Astro blog."
-pubDate: 2023-12-23
-description: "This is the first post of my new Astro blog."
-author: "nicdun"
+title: "Hosting Aggie Events On RackNerd VPS"
+pubDate: 2024-09-14
+description: "Using RackNerd VPS to host database and serve website to users."
+author: "Jadon Lee"
 excerpt: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
 image:
   src:
   alt:
-tags: ["tag1", "tag2", "tag3"]
+tags: ["backend", "PuTTY", "VPS"]
 ---
 
-This is a paragraph. Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
+When choosing how we wanted to host Aggie Events, we had to consider several factors. We needed something that could handle a backend database, not just serve a static front-end site, and we also wanted something cheap and customizable.
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
+Originally we were leaning towards vercel hosting, which had backend database support, but ultimately chose a [Virtual Private Server](https://cloud.google.com/learn/what-is-a-virtual-private-server)(VPS) with [NerdRack](https://www.racknerd.com/) for a limited time special they had at the time and the control it gave us. Personally, setting up a VPS is something I've always wanted to learn for projects such as custom photo servers.
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
+# Setting Up The NerdRack VPS
 
-## Headings
+## 1. Log in through SSH
 
-# H1 For example
+Since I am operating on a Windows machine I had to install [PuTTY](https://www.putty.org/) an SSH client first. After installing PuTTY I opened an SSH terminal to the server IP and entered the server credentials.
+[PuTTY Config Image](../../images/first_blog_post/PuTTY_Config.png)
+[Logged in to server](../../images/first_blog_post/Logged_In_Putty.png)
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
+## 2. Security
 
-## H2 For example
+Before installing an Apache or NGINX server, I wanted to tackle some security improvements. When browsing online I came across several ideas and considerations when for when securing a server.
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
+- SSH key authentication and disable password authentication
+- using a VPN layer on top of SSH key authentication
+- Fail2ban brute force login protection
+- changing the default SSH port
+- enabling a firewall (be careful)
+- disabling root log-in and add sudo user
+- automatic security updates
+- disabling unecessary server ports
+- 2FA login for SSH
+- data back ups
+- Cloudflare DDoS protectionconfigur
+- Using a CDN
 
-### H3 For example
+### SSH Key Auth
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
+The general consensus online is that SSH key authentication is a must, so it's the first thing I set up.
 
-#### H4 For example
+I first opened PuTTYgen which is a public private key pair generator application that comes with PuTTY. I love how it uses random mouse movement for the randomization aspect of key generation. After saving the private key and copying the public key, I logged back into the PuTTY SSH.
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
+Next I create the /.ssh directory. Then using nano created the authorized_keys file and pasted the public key in.
 
-##### H5 For example
-
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
-
-###### H6 For example
-
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
-
-## Emphasis
-
-Emphasis, aka italics, with _asterisks_ or _underscores_.
-
-Strong emphasis, aka bold, with **asterisks** or **underscores**.
-
-Strikethrough uses two tildes. ~~Scratch this.~~
-
-## Blockquotes
-
-> Blockquotes are very handy in email to emulate reply text.
-> This line is part of the same quote.
-
-Quote break.
-
-> This is a very long line that will still be quoted properly when it wraps. Oh boy let's keep writing to make sure this is long enough to actually wrap for everyone. Oh, you can _put_ **Markdown** into a blockquote.
-
-## Horizontal separator
-
-This is a horizontal separator:
-
----
-
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
-
----
-
-## List types
-
-### Ordered list
-
-1. List item 1
-2. List item 2
-   1. Nested list item A
-   2. Nested list item B
-3. List item 3
-
-### Unordered list
-
-- List item
-- List item
-  - Nested list item
-  - Nested list item
-    - Double nested list item
-    - Double nested list item
-- List item
-
-### Mixed list
-
-1. First ordered list item
-2. Another item
-   - Unordered sub-list.
-3. Actual numbers don't matter, just that it's a number
-   1. Ordered sub-list
-4. And another item.
-
-## Links
-
-[Inline-style link](https://www.google.com)
-
-[Inline-style link with title](https://www.google.com "Google's Homepage")
-
-[Reference-style link][arbitrary case-insensitive reference text]
-
-[You can use numbers for reference-style link definitions][1]
-
-Or leave it empty and use the [link text itself].
-
-Some text to show that the reference links can follow later.
-
-[arbitrary case-insensitive reference text]: https://www.mozilla.org
-[1]: http://slashdot.org
-[link text itself]: http://www.reddit.com
-
-## Images
-
-Images included in _\_posts_ folder are lazy loaded.
-
-Inline-style:
-![alt text](/src/images/random.jpeg "Logo Title Text 1")
-
-## Table
-
-| Tables        |      Are      | Cool |
-| ------------- | :-----------: | ---: |
-| col 3 is      | right-aligned | 1600 |
-| col 2 is      |   centered    |   12 |
-| zebra stripes |   are neat    |    1 |
-
-| Markdown | Less      | Pretty     |
-| -------- | --------- | ---------- |
-| _Still_  | `renders` | **nicely** |
-| 1        | 2         | 3          |
-
-## Syntax highlight
-
-```ts title="astro.config.mjs" showLineNumbers {1-2,5-6}
-import { defineConfig } from "astro/config";
-import vercelStatic from "@astrojs/vercel/static";
-
-export default defineConfig({
-  output: "static",
-  adapter: vercelStatic({
-    webAnalytics: {
-      enabled: true,
-    },
-  }),
-});
+``` bash
+mkdir -p ~/.shh
+nano ~/.ssh/authorized_keys
 ```
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur vero esse non molestias eos excepturi, inventore atque cupiditate. Sed voluptatem quas omnis culpa, et odit.
+Originally I decided not to update write permissions of the file et, since at this stage root is the owner and I am planning on disabling root login later. Then once a sudo user is created I would have transfered ownership of the file and enable write permissions only for that sudo user. It turns out you need to update the file permissions for key authentication to work so I ran the following commands.
 
-```python showLineNumbers
-s = "Python syntax highlighting"
-print s
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
 ```
+
+Make sure to restart the SSH service everytime you make changes.
+
+```bash
+sudo systemctl restart ssh
+```
+
+After logging out of SSH and opening the PuTTY configuration editor, I added the private key for authentication.
+
+Accessing SSH through PuTTY it now only asks for a user and then uses the SSH key to authenticate (note: I did make it require a passkey for using the SSH key for extra security)
+
+### Adding Users
+
+For security purposes and collaboration purposes, the next item I wanted to tackle was to add new Sudo level users to the server. First I made a sudo level user for myself.
+
+I did this by creating a new user using:
+
+```bash
+sudo adduser my_username
+```
+
+Then I gave that user sudo level privledges:
+
+```bash
+sudo usermod -aG sudo my_username
+```
+
+And finally I switched to that user using:
+
+```bash
+su - my_username
+```
+
+I repeated the same steps to set up secure SSH key authentication and repeated everything again to create a user for my Co-PM Alex.
+
+TODO: need to make me and alex part of a team and create a shared directory
