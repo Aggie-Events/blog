@@ -70,6 +70,8 @@ After logging out of SSH and opening the PuTTY configuration editor, I added the
 
 Accessing SSH through PuTTY it now only asks for a user and then uses the SSH key to authenticate (note: I did make it require a passkey for using the SSH key for extra security)
 
+Finally I modified the sshd config file to disable password authentication.
+
 ### Adding Users
 
 For security purposes and collaboration purposes, the next item I wanted to tackle was to add new Sudo level users to the server. First I made a sudo level user for myself.
@@ -94,4 +96,25 @@ su - my_username
 
 I repeated the same steps to set up secure SSH key authentication and repeated everything again to create a user for my Co-PM Alex.
 
-TODO: need to make me and alex part of a team and create a shared directory
+Finally I removed root login by modifying the sshd config file, which has the rootLogin property.
+
+```bash
+PermitRootLogin no
+```
+
+### Fail2Ban Brute Force Protection
+
+After setting up SSH key pair authentication I looked over the SSH logs and found that there were brute force login attempts to our server literally every few seconds. For this reason I decided it would be best to set up Fail2Ban next, even though we already have SSH key pair authentication.
+
+Fail2Ban blocks traffic from certain IPs after a number of failed login attempts.
+
+These 2 guides were helpful in helping me set up Fail2Ban:
+
+- [https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-22-04)
+- [https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-22-04](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-22-04)
+
+I'm not going to list the exact steps taken to install and set-up Fail2Ban as they very closely followed these guides.
+
+One Fail2Ban feature that I will implement later is email notifications when a ban is placed, but I will first finish setting up the rest of the security features.
+
+When looking through the config file for Fail2Ban I noticed that they offered DDoS protection as well, so this was an alternative I considered to cloudflair.
