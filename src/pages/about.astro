@@ -1,0 +1,14 @@
+---
+import Section from '@/components/Section.astro';
+import Base from '@/layouts/Base.astro';
+import { AppConfig } from '@/utils/AppConfig';
+
+const { title, description } = AppConfig;
+---
+
+<Base head={{ title, description }}>
+  <Section>
+    <h1>About Aggie Events</h1>
+    <p>Welcome to Aggie Events! We are dedicated to providing the best event management solutions for Aggie communities. Our platform helps you organize, manage, and promote events with ease. Stay tuned for more updates and features!</p>
+  </Section>
+</Base>
