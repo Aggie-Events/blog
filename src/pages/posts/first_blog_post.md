@@ -20,8 +20,8 @@ Originally we were leaning towards vercel hosting, which had backend database su
 ## 1. Log in through SSH
 
 Since I am operating on a Windows machine I had to install [PuTTY](https://www.putty.org/) an SSH client first. After installing PuTTY I opened an SSH terminal to the server IP and entered the server credentials.
-[PuTTY Config Image](../../images/first_blog_post/PuTTY_Config.png)
-[Logged in to server](../../images/first_blog_post/Logged_In_Putty.png)
+![PuTTY Config Image](public/images/first_blog_post/PuTTY_Config.png)
+![Logged in to server](public/images/first_blog_post/Logged_In_Putty.png)
 
 ## 2. Security
 
