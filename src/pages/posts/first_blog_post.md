@@ -4,7 +4,18 @@ title: "Hosting Aggie Events On RackNerd VPS"
 pubDate: 2024-09-14
 description: "Using RackNerd VPS to host database and serve website to users."
 author: "Jadon Lee"
-excerpt: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
+excerpt: SSH key authentication and disable password authentication
+- using a VPN layer on top of SSH key authentication
+- Fail2ban brute force login protection
+- changing the default SSH port
+- enabling a firewall (be careful)
+- disabling root log-in and add sudo user
+- automatic security updates
+- disabling unecessary server ports
+- 2FA login for SSH
+- data back ups
+- Cloudflare DDoS protectionconfigur
+- Using a CDN
 image:
   src:
   alt:
@@ -20,8 +31,8 @@ Originally we were leaning towards vercel hosting, which had backend database su
 ## 1. Log in through SSH
 
 Since I am operating on a Windows machine I had to install [PuTTY](https://www.putty.org/) an SSH client first. After installing PuTTY I opened an SSH terminal to the server IP and entered the server credentials.
-[PuTTY Config Image](../../images/first_blog_post/PuTTY_Config.png)
-[Logged in to server](../../images/first_blog_post/Logged_In_Putty.png)
+![PuTTY Config Image](../../images/first_blog_post/PuTTY_Config.png)
+![Logged in to server](../../images/first_blog_post/Logged_In_Putty.png)
 
 ## 2. Security
 
@@ -118,3 +129,59 @@ I'm not going to list the exact steps taken to install and set-up Fail2Ban as th
 One Fail2Ban feature that I will implement later is email notifications when a ban is placed, but I will first finish setting up the rest of the security features.
 
 When looking through the config file for Fail2Ban I noticed that they offered DDoS protection as well, so this was an alternative I considered to cloudflair.
+
+### Changing the SSH Port
+
+This was apparently the best thing we could have done. After changing the SSH login port the number of failed log in attempts jumped to 0 for at least 10 days now as of writing this post.
+
+### Configuring Automatic Updates
+
+Used Unattended Upgrades application for this.
+
+Installation:
+
+```bash
+sudo apt update
+sudo apt install unattended-upgrades
+```
+
+Enabling the service:
+
+```bash
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+```
+
+In the future I will also be enabling email notifications for unattended-upgrades.
+
+### Groups
+
+In order to make it easier to secure data with file permissions and still make the data accessible to ourselves, I created a linux group. When we bring more people into back end, this will make it easy to set up blanket permissions.
+
+Creating the group:
+
+```bash
+sudo groupadd <groupname>
+```
+
+Adding users:
+
+```bash
+sudo usermod -aG username
+```
+
+From here the group can become owners of files. This is helpful if we want owner only access and multiple accounts to to access files or directories.
+
+### Data Back Ups
+
+The last thing I wanted to do in terms of server security is data backups.
+
+For file transfer we are using FileZilla, which provides a nice UI for navigating the file system on the server and transfer files to and from the server.
+
+
+
+## 3. File Transfer
+
+FileZilla is an application that provides a UI for navigating the file system on the server and also uses SFTP (secure file transfer protocol) to allow files to be transfered between our machines to the server.
+
+![FileZilla Screenshot](FileZilla.png)
+
