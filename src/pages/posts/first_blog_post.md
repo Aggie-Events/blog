@@ -16,6 +16,7 @@ excerpt: SSH key authentication and disable password authentication
 - data back ups
 - Cloudflare DDoS protectionconfigur
 - Using a CDN
+c36c8da637e1dd4e1ea6f71c142c6f786
 image:
   src:
   alt:
@@ -31,8 +32,9 @@ Originally we were leaning towards vercel hosting, which had backend database su
 ## 1. Log in through SSH
 
 Since I am operating on a Windows machine I had to install [PuTTY](https://www.putty.org/) an SSH client first. After installing PuTTY I opened an SSH terminal to the server IP and entered the server credentials.
-![PuTTY Config Image](../../images/first_blog_post/PuTTY_Config.png)
-![Logged in to server](../../images/first_blog_post/Logged_In_Putty.png)
+
+![PuTTY Config Image](public/images/first_blog_post/PuTTY_Config.png)
+![Logged in to server](public/images/first_blog_post/Logged_In_Putty.png)
 
 ## 2. Security
 
@@ -177,11 +179,8 @@ The last thing I wanted to do in terms of server security is data backups.
 
 For file transfer we are using FileZilla, which provides a nice UI for navigating the file system on the server and transfer files to and from the server.
 
-
-
 ## 3. File Transfer
 
 FileZilla is an application that provides a UI for navigating the file system on the server and also uses SFTP (secure file transfer protocol) to allow files to be transfered between our machines to the server.
 
 ![FileZilla Screenshot](FileZilla.png)
-
