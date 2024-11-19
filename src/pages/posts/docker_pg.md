@@ -2,9 +2,9 @@
 layout: ../../layouts/post.astro
 title: "Using Docker to host a PostgreSQL database"
 pubDate: 2024-10-25
-description: ""
+description: "A guide to setting up a PostgreSQL database using Docker from scratch"
 author: "Alexander Bui"
-excerpt: 
+excerpt: "Ever tried installing an application on your computer, only to find that it requires specific versions of certain dependencies, which conflict with other software you have installed? Or, have you ever wished that you could boot up an entire network of applications with no setup instantly from your terminal? Docker solves this by letting you package an app and all its dependencies into one unit called a container. These containers are self contained units created with only a script, ensuring that it can run consistently across different environments and doesn't interfere with the host computer."
 image:
   src:
   alt:

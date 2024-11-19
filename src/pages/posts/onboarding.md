@@ -1,17 +1,16 @@
 ---
 layout: ../../layouts/post.astro
-title: 'Getting onboarded for backend development'
+title: 'Getting onboarded'
 pubDate: 2024-11-18
-description: 'Downloading and configuring everything you need to set up a local development environment'
+description: 'Downloading and configuring everything you need to set up a local development environment for Aggie Events'
 author: 'Alexander Bui'
-excerpt:
+excerpt: 'Downloading and configuring everything you need to set up a local development environment for Aggie Events.'
 image:
   src:
   alt:
 tags: ['backend','Docker','PostgreSQL','Node.js','Git']
 ---
 
-#
 Welcome to the world of backend development! In this article, I'll guide you through the process of getting onboarded 
 for backend development for Aggie Events. 
 
@@ -60,7 +59,7 @@ GOOGLE_CLIENT_ID=[INSERT GOOGLE CLIENT ID HERE]
 GOOGLE_CLIENT_SECRET=[INSERT GOOGLE CLIENT SECRET HERE]
 ```
 
-For both the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`, check the `#backend` channel in the Discord server for the values. Make sure to keep these values secure and not share them with anyone.
+For both the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`, check the `#env` channel in the Discord server for the values. Make sure to keep these values secure and not share them with anyone.
 
 The last `.env` file will be in the `backend` directory. This file will contain the following:
 
