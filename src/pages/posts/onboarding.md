@@ -2,13 +2,13 @@
 layout: ../../layouts/post.astro
 title: 'Getting onboarded for backend development'
 pubDate: 2024-11-18
-description: ''
+description: 'Downloading and configuring everything you need to set up a local development environment'
 author: 'Alexander Bui'
 excerpt:
 image:
   src:
   alt:
-tags: ['backend']
+tags: ['backend','Docker','PostgreSQL','Node.js','Git']
 ---
 
 #
@@ -88,19 +88,19 @@ docker compose -f docker-compose.dev.yml up -d
 This command will start the PostgreSQL database in the background. I also included a program called pgAdmin that you can use to interact with the database.
 
 You can check if the programs are running by opening Docker Desktop and looking at the running containers.
-![Docker Desktop Image](/public/images/onboarding/docker_desktop.png)
+![Docker Desktop Image](/images/onboarding/docker_desktop.png)
 
 ## Accessing the Docker database (optional)
 To actually access your local database instance, there are many different methods. I personally prefer using Webstorm with their built-in database source. However, for ease of use, I've included a pgAdmin container, which is a program that allows you to access the database.
 
 Access this by navigating to `http://localhost:5050` in your browser. You should see the pgAdmin login page.
 
-![pgAdmin login](/public/images/onboarding/pgadmin.png)
+![pgAdmin login](/images/onboarding/pgadmin.png)
 
 Log in with the email and password specified in the `.env` file in the root directory. If you didn't change anything, the email should be `admin@admin.com` and the password should be `root`.
 
 To actually register the database into pgAdmin, you will have to first find the IP address of your PostgreSQL docker container. This can be found by either using the `docker inspect postgres_container` command and scrolling down to the `IPAddress` value, or by inspecting the database container in Docker Desktop.
-![Docker Desktop inspect](/public/images/onboarding/docker_inspect.png)
+![Docker Desktop inspect](/images/onboarding/docker_inspect.png)
 
 Next, you can register a database in the pgAdmin web interface by right-clicking on Servers, and clicking Register > Server. Put any name you like. 
 
@@ -108,7 +108,7 @@ In the Connection tab, under `Host name/address`, put the Docker container IP ad
 
 After you click save, you should be able to see and interact with your database.
 
-![pgAdmin register](/public/images/onboarding/final_pgadmin.png)
+![pgAdmin register](/images/onboarding/final_pgadmin.png)
 
 ## Starting the backend server
 To run both the frontend and the backend, you will need to have two seperate terminal sessions open.

@@ -23,7 +23,7 @@ Docker solves this by letting you package an app and all its dependencies into o
 
 ## Download Docker Desktop
 Using Docker Desktop makes it really easy manage your docker containers through a GUI.
-![Docker Desktop Image](public/images/docker_pg/docker_desktop.png)
+![Docker Desktop Image](/images/docker_pg/docker_desktop.png)
 
 ## Creating a Docker Compose file
 Create a file called compose.yaml and paste this in:
@@ -64,18 +64,18 @@ Simply add this to the compose.yaml:
 ```
 
 If you rerun the compose.yaml file, you should see the pgAdmin web interface when you navigate to http://localhost:5050/
-![pgAdmin login](public/images/docker_pg/pgadmin.png)
+![pgAdmin login](/images/docker_pg/pgadmin.png)
 
 Log in with the email and password specified in the compose.yaml file. To actually register the database into pgAdmin, you will have to first find the IP address of your PostgreSQL docker container. This can be found by either using the ``` docker inspect [container_name]``` command, or by using inspect in Docker Desktop.
 
-![Docker Desktop inspect](public/images/docker_pg/docker_inspect.png)
+![Docker Desktop inspect](/images/docker_pg/docker_inspect.png)
 
 Next, you can register a database in the pgAdmin web interface by right-clicking on Servers, and clicking Register > Server. Put any name you like.
 
 In the Connection tab, put the Docker container IP address. Change the username and password to the database credentials specified under the compose.yaml POSTGRES environment variables.
 
 If everything goes well, you should be able to see and interact with your database. 
-![Successful pgAdmin](public/images/docker_pg/final_pgadmin.png)
+![Successful pgAdmin](/images/docker_pg/final_pgadmin.png)
 
 ## Some final touches
 
