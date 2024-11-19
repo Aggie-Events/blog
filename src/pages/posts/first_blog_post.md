@@ -4,7 +4,7 @@ title: "Hosting Aggie Events On RackNerd VPS"
 pubDate: 2024-09-14
 description: "Using RackNerd VPS to host database and serve website to users."
 author: "Jadon Lee"
-excerpt: SSH key authentication and disable password authentication
+excerpt: "SSH key authentication and disable password authentication
 - using a VPN layer on top of SSH key authentication
 - Fail2ban brute force login protection
 - changing the default SSH port
@@ -12,11 +12,10 @@ excerpt: SSH key authentication and disable password authentication
 - disabling root log-in and add sudo user
 - automatic security updates
 - disabling unecessary server ports
-- 2FA login for SSH
+- 2FA login for SSH 
 - data back ups
 - Cloudflare DDoS protectionconfigur
-- Using a CDN
-c36c8da637e1dd4e1ea6f71c142c6f786
+- Using a CDN" 
 image:
   src:
   alt:
@@ -61,7 +60,7 @@ I first opened PuTTYgen which is a public private key pair generator application
 
 Next I create the /.ssh directory. Then using nano created the authorized_keys file and pasted the public key in.
 
-``` bash
+```bash
 mkdir -p ~/.shh
 nano ~/.ssh/authorized_keys
 ```
@@ -183,4 +182,4 @@ For file transfer we are using FileZilla, which provides a nice UI for navigatin
 
 FileZilla is an application that provides a UI for navigating the file system on the server and also uses SFTP (secure file transfer protocol) to allow files to be transfered between our machines to the server.
 
-![FileZilla Screenshot](FileZilla.png)
+![FileZilla Screenshot](public/images/first_blog_post/FileZilla.png)
