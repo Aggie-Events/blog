@@ -81,13 +81,37 @@ For this project, we are using a PostgreSQL database running as a Docker image. 
 To start the database, navigate to the root directory of the project in a terminal and run the following command:
 
 ```bash
-docker compose -f docker-compose.dev.yml up -d
+docker compose -f compose.dev.yml up -d
 ```
 
 This command will start the PostgreSQL database in the background. I also included a program called pgAdmin that you can use to interact with the database.
 
+## Troubleshooting Common Errors
+
+While setting up your development environment, you might encounter some common errors. Here are a few tips to help you troubleshoot them:
+
+If you continue to experience issues, don't hesitate to ask for help in the Discord server.
+
 You can check if the programs are running by opening Docker Desktop and looking at the running containers.
 ![Docker Desktop Image](/images/onboarding/docker_desktop.png)
+
+### Docker Issues
+1. **Docker Daemon Not Running**: Ensure that Docker Desktop is running. You can check this by looking for the Docker icon in your system tray.
+2. **Port Conflicts**: If you encounter port conflicts, make sure no other services are running on ports `5432` (PostgreSQL) and `5050` (pgAdmin). You can change the port in the compose file.
+
+### Environment Variables
+1. **Missing Environment Variables**: Double-check that all required environment variables are set correctly in your `.env` files.
+2. **Incorrect Values**: Ensure that the values for `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, and `BACKEND_SECRET` are correct and match the ones provided in the Discord server.
+
+### Node.js and npm Issues
+1. **Version Mismatch**: Ensure you are using the correct version of Node.js as specified in the project's documentation.
+2. **Dependency Installation**: If `npm install` fails, try deleting the `node_modules` folder and `package-lock.json` file, then run `npm install` again.
+
+### Database Connection
+1. **Connection Refused**: Ensure that the PostgreSQL container is running and that the connection details in pgAdmin match the ones specified in your `.env` file.
+2. **Authentication Failed**: Double-check the username and password for the PostgreSQL database.
+
+
 
 ## Accessing the Docker database (optional)
 To actually access your local database instance, there are many different methods. I personally prefer using Webstorm with their built-in database source. However, for ease of use, I've included a pgAdmin container, which is a program that allows you to access the database.
