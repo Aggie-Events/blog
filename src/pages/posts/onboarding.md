@@ -78,7 +78,7 @@ For the `BACKEND_SECRET`, you can put any random string here.
 ## Starting the local database instance
 For this project, we are using a PostgreSQL database running as a Docker image. You don't really have to know how to use Docker to start the database. 
 
-To start the database, navigate to the root directory of the project in a terminal and run the following command:
+To start the database, first open Docker Desktop, then navigate to the root directory of the project in a terminal and run the following command:
 
 ```bash
 docker compose -f compose.dev.yml up -d
